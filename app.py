@@ -2,7 +2,7 @@ from functools import wraps
 import os
 import re
 import sys
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response, jsonify, g
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
 CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
@@ -11,6 +11,18 @@ JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
 ENV_WARNING = 'You crazy? Provide correct environment (dev/qa/uat/test)'
 JIRA_WARNING = 'You crazy? Provide correct JIRA task number (e.g. 3242)'
 ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
+
+def after_this_request(func):
+    if not hasattr(g, 'call_after_request'):
+        g.call_after_request = []
+    g.call_after_request.append(func)
+    return func
+
+@app.after_request
+def per_request_callbacks(response):
+    for func in getattr(g, 'call_after_request', ()):
+        response = func(response)
+    return response
 
 app = Flask(__name__)
 
@@ -80,16 +92,14 @@ def get_jira_link():
 @app.route('/kudo', methods=['POST'])
 @requires_auth
 def send_kudo():
-    response_url = request.form.get('response_url')
-    #return response_url
-    return jsonify(
-        text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
-        response_type="in_channel"
-        )
-    # request.post(response_url, headers={'Content-Type': 'application/json'}, data=jsonify(
-    #         text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
-    #         response_type="in_channel"
-    #         ))
+    @after_this_request
+    def send_post(response):
+        response_url = request.form.get('response_url')
+        xx = jsonify(
+            text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
+            response_type="in_channel")
+        request.post(response_url, headers={'Content-Type': 'application/json'}, data=xx)
+    return Response(), 200
 
 
 if __name__ == '__main__':
