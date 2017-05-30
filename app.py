@@ -25,6 +25,9 @@ def get_jira_url(task_number):
 def get_entered_text():
     return request.form.get('text').lower()
 
+def get_username():
+    return request.form.get('username')
+
 def is_authorized():
     return request.form.get('token') == SLACK_WEBHOOK_SECRET
     # return True
@@ -63,6 +66,15 @@ def get_jira_link():
         return get_jira_url(jira_task_number)
     else:
         return JIRA_WARNING
+
+@app.route('/kudo', methods=['POST'])
+@requires_auth
+def send_kudo():
+    text = get_entered_text()
+    to_username = text
+    from_username = get_username()
+    kudo_message = text
+    return text + get_username
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
