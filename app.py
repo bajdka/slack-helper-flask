@@ -1,12 +1,15 @@
 from functools import wraps
 import os
 import re
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response, jsonify, g
 
-SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
-CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
-CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
-JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
+DEBUG = False
+
+if not DEBUG:
+    SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
+    CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
+    CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
+    JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
 ENV_WARNING = 'You crazy? Provide correct environment (dev/qa/uat/test)'
 JIRA_WARNING = 'You crazy? Provide correct JIRA task number (e.g. 3242)'
 ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
@@ -26,7 +29,10 @@ def get_entered_text():
     return request.form.get('text').lower()
 
 def is_authorized():
-    return request.form.get('token') == SLACK_WEBHOOK_SECRET
+    if DEBUG:
+        return True
+    else:
+        return request.form.get('token') == SLACK_WEBHOOK_SECRET
 
 def requires_auth(f):
     @wraps(f)
@@ -71,6 +77,38 @@ def get_jira_link():
             )
     else:
         return JIRA_WARNING
+
+def after_this_request(func):
+    if not hasattr(g, 'call_after_request'):
+        g.call_after_request = []
+    g.call_after_request.append(func)
+    return func
+
+
+@app.after_request
+def per_request_callbacks(response):
+    for func in getattr(g, 'call_after_request', ()):
+        response = func(response)
+    return response
+
+import requests
+import json
+
+
+@app.route('/kudo', methods=['POST'])
+# @requires_auth
+def send_kudo():
+    # @after_this_request
+    # def delete_username_cookie(response):
+    #     print request.form.get('text')
+
+    headers = {'content-type': 'application/json'}
+    url = request.form.get('response_url')
+
+    data = {"text": "blablbla"}
+
+    requests.post(url, data=json.dumps(data), headers=headers)
+    return Response(), 200
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
