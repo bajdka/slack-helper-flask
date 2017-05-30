@@ -97,8 +97,7 @@ def send_kudo():
     @after_this_request
     def send_post(response):
         response_url = request.form.get('response_url')
-        xx = json.dumps({"text":"%s + %s" % (get_entered_text(), get_username()),
-            "response_type":"in_channel"})
+        xx = json.dumps({"text":"%s + %s" % (get_entered_text(), get_username()), "response_type":"in_channel"})
         requests.post(response_url, headers={'Content-Type': 'application/json'}, data=xx)
     return Response(), 200
 
