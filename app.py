@@ -91,8 +91,8 @@ def get_jira_link():
 #         response = func(response)
 #     return response
 
-import requests
-import json
+# import requests
+# import json
 
 
 @app.route('/kudo', methods=['POST'])
@@ -107,7 +107,7 @@ def send_kudo():
 
     data = {"text": "blablbla"}
 
-    requests.post(url, data=json.dumps(data), headers=headers)
+    # requests.post(url, data=json.dumps(data), headers=headers)
     return Response(), 200
 
 if __name__ == '__main__':
