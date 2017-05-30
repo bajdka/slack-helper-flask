@@ -4,9 +4,9 @@ import re
 from flask import Flask, request, Response
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
-CLAIMS_BASE_URL = 'http://cgbsclaim%s01:18001/claims/overview'
-CONTRACT_BASE_URL = 'http://cgbscontract%s01.cg.internal:18001/contracts/overview'
-JIRA_URL = 'https://jira.cargarantie.com/browse/BESTIMPL-%s'
+CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
+CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
+JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
 ENV_WARNING = 'You crazy? Provide correct environment (dev/qa/uat/test)'
 JIRA_WARNING = 'You crazy? Provide correct JIRA task number (e.g. 3242)'
 ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
@@ -14,13 +14,13 @@ ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
 app = Flask(__name__)
 
 def get_claims_url(env):
-    return CLAIMS_BASE_URL % env
+    return CLAIM_BASE_URL % env
 
 def get_contract_url(env):
     return CONTRACT_BASE_URL % env
 
 def get_jira_url(task_number):
-    return JIRA_URL % task_number
+    return JIRA_BASE_URL % task_number
 
 def get_entered_text():
     return request.form.get('text').lower()
