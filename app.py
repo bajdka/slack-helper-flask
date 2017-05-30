@@ -106,10 +106,9 @@ def send_kudo():
     headers = {'content-type': 'application/json'}
     url = request.form.get('response_url')
 
-    data = {"text": "blablbla"}
+    data = {"text": "blablbla", "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
-    # return request.form.get('response_url')
     return Response(), 200
 
 if __name__ == '__main__':
