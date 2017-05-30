@@ -49,11 +49,11 @@ def get_jira_link():
     how = re.match("\d+", jira_task_number)
     how2 = re.match(r"\d+", jira_task_number)
 
-    return "Text: %s, result: %s, result2: %s" % (jira_task_number, how, how2)
-    # if re.match("\d+", jira_task_number):
-    #     return get_jira_url(jira_task_number)
-    # else:
-    #     return 'You crazy? Provide correct JIRA task number (eg.: 3242)'
+    # return "Text: %s, result: %s, result2: %s" % (jira_task_number, how, how2)
+    if re.match(r"\d+", jira_task_number):
+        return get_jira_url(jira_task_number)
+    else:
+        return 'You crazy? Provide correct JIRA task number (eg.: 3242)'
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
