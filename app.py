@@ -22,6 +22,9 @@ def get_contract_url(env):
 def get_jira_url(task_number):
     return JIRA_URL % task_number
 
+def get_entered_text():
+    return request.form.get('text').lower()
+
 def is_authorized():
     return request.form.get('token') == SLACK_WEBHOOK_SECRET
     # return True
@@ -37,7 +40,7 @@ def requires_auth(f):
 @app.route('/claim', methods=['POST'])
 @requires_auth
 def get_claims_env():
-    env = request.form.get('text')
+    env = get_entered_text()
     if env in ENVIRONMENTS:
         return get_claims_url(env)
     else:
@@ -46,7 +49,7 @@ def get_claims_env():
 @app.route('/contract', methods=['POST'])
 @requires_auth
 def get_contract_env():
-    env = request.form.get('text')
+    env = get_entered_text()
     if env in ENVIRONMENTS:
         return get_contract_url(env)
     else:
@@ -55,7 +58,7 @@ def get_contract_env():
 @app.route('/jira', methods=['POST'])
 @requires_auth
 def get_jira_link():
-    jira_task_number = request.form.get('text')
+    jira_task_number = get_entered_text()
     if re.match("^[0-9]{4}$", jira_task_number):
         return get_jira_url(jira_task_number)
     else:
