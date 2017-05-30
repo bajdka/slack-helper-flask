@@ -1,7 +1,7 @@
 from functools import wraps
 import os
 import re
-from flask import Flask, request, Response, jsonify, g
+from flask import Flask, request, Response, jsonify
 
 DEBUG = False
 
