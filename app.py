@@ -80,33 +80,18 @@ def get_jira_link():
     else:
         return JIRA_WARNING
 
-# def after_this_request(func):
-#     if not hasattr(g, 'call_after_request'):
-#         g.call_after_request = []
-#     g.call_after_request.append(func)
-#     return func
-
-
-# @app.after_request
-# def per_request_callbacks(response):
-#     for func in getattr(g, 'call_after_request', ()):
-#         response = func(response)
-#     return response
-
-
-
-
 @app.route('/kudo', methods=['POST'])
-# @requires_auth
+@requires_auth
 def send_kudo():
-    # @after_this_request
-    # def delete_username_cookie(response):
-    #     print request.form.get('text')
-
     headers = {'content-type': 'application/json'}
     url = request.form.get('response_url')
 
-    data = {"text": "blablbla", "response_type":"in_channel"}
+    data = {
+        "attachments": [
+            {"color": "good",
+             "pretext": "Wild kudo appears!",
+             "text": "*From:* gosia\n*To:* jozek\n*Why:* because",
+             "mrkdwn_in":"text"}], "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
     return Response(), 200
