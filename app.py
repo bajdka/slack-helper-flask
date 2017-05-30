@@ -88,22 +88,23 @@ def get_contract_env():
 def get_jira_link():
     jira_task_number = get_entered_text()
     if re.match("^[0-9]{4}$", jira_task_number):
-        return jsonify(
-            text=get_jira_url(jira_task_number),
-            response_type="in_channel"
-            )
+        # return jsonify(
+        #     text=get_jira_url(jira_task_number),
+        #     response_type="in_channel"
+        #     )
+        return get_response_url()
     else:
         return JIRA_WARNING
 
-@app.route('/kudo', methods=['POST'])
-def send_kudo():
-    # @after_this_request
-    # def send_post(response):
-    #     response_url = 'https://hooks.slack.com/commands/T5BD97FPY/189396437792/CPSNJxTai83cK6iE0q8ztWmO'
-    #     xx = json.dumps({"text":"%s + %s" % (get_entered_text(), get_username()), "response_type":"in_channel"})
-    #     requests.post(response_url, headers={'Content-Type': 'application/json'}, data=xx)
-    # return Response(), 200
-    return get_response_url()
+# @app.route('/kudo', methods=['POST'])
+# def send_kudo():
+#     # @after_this_request
+#     # def send_post(response):
+#     #     response_url = 'https://hooks.slack.com/commands/T5BD97FPY/189396437792/CPSNJxTai83cK6iE0q8ztWmO'
+#     #     xx = json.dumps({"text":"%s + %s" % (get_entered_text(), get_username()), "response_type":"in_channel"})
+#     #     requests.post(response_url, headers={'Content-Type': 'application/json'}, data=xx)
+#     # return Response(), 200
+#     return get_response_url()
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
