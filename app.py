@@ -17,6 +17,7 @@ def get_jira_url(task_number):
 
 def is_authorized():
     return request.form.get('token') == SLACK_WEBHOOK_SECRET
+    # return True
 
 def requires_auth(f):
     @wraps(f)
@@ -42,14 +43,17 @@ def get_test_env():
     return get_claims_url('test')
 
 @app.route('/jira', methods=['POST'])
-@requires_auth
+# @requires_auth
 def get_jira_link():
     jira_task_number = request.form.get('text')
-    pattern = re.compile("\b[0-9]\{4\}\b")
-    if pattern.match(jira_task_number):
-        return get_jira_url(jira_task_number)
-    else:
-        return 'You crazy? Provide JIRA task number, eg.: 3242'
+    how = re.match("\d+", jira_task_number)
+    how2 = re.match(r"\d+", jira_task_number)
+
+    return "Text: %s, result: %s, result2: %s" % (jira_task_number, how, how2)
+    # if re.match("\d+", jira_task_number):
+    #     return get_jira_url(jira_task_number)
+    # else:
+    #     return 'You crazy? Provide correct JIRA task number (eg.: 3242)'
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
