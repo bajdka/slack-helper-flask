@@ -1,6 +1,7 @@
 from functools import wraps
 import os
 import re
+import sys
 from flask import Flask, request, Response, jsonify
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
@@ -79,12 +80,15 @@ def get_jira_link():
 @app.route('/kudo', methods=['POST'])
 @requires_auth
 def send_kudo():
-    response_url = request.form.get('response_url')
-    request.post(response_url, headers={'Content-Type': 'application/json'}, data=jsonify(
-        text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
-        response_type="in_channel"
-        ))
-    return Response(), 200
+    try:
+        response_url = request.form.get('response_url')
+        request.post(response_url, headers={'Content-Type': 'application/json'}, data=jsonify(
+            text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
+            response_type="in_channel"
+            ))
+        return Response(), 201
+    except:
+        return sys.exc_info()[0]
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
