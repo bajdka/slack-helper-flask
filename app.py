@@ -2,8 +2,8 @@ from functools import wraps
 import os
 import re
 from flask import Flask, request, Response, jsonify
-import requests
-import json
+# import requests
+# import json
 
 DEBUG = False
 
@@ -104,7 +104,7 @@ def send_kudo():
     #     print request.form.get('text')
 
     headers = {'content-type': 'application/json'}
-    url = request.form.get('response_url')
+    # url = request.form.get('response_url')
 
     data = {"text": "blablbla"}
 
