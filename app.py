@@ -88,7 +88,8 @@ def send_kudo():
 
     data = {
         "attachments": [
-            {"color": "good",
+            {"username":"ziomek",
+             "color": "good",
              "pretext": "Wild kudo appears!",
              "text": "*From:* gosia\n*To:* jozek\n*Why:* because",
              "mrkdwn_in":["text"]}], "response_type":"in_channel"}
