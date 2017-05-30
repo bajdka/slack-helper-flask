@@ -91,7 +91,7 @@ def send_kudo():
             {"color": "good",
              "pretext": "Wild kudo appears!",
              "text": "*From:* gosia\n*To:* jozek\n*Why:* because",
-             "mrkdwn_in":"text"}], "response_type":"in_channel"}
+             "mrkdwn_in":["text"]}], "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
     return Response(), 200
