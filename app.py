@@ -12,15 +12,15 @@ def get_claims_url(env):
 def get_url():
     return "sup?"
 
-@app.route('/dev')
+@app.route('/dev', methods=['POST'])
 def get_dev_env():
     return get_claims_url('dev')
 
-@app.route('/qa')
+@app.route('/qa', methods=['POST'])
 def get_qa_env():
     return get_claims_url('qa')
 
-@app.route('/test')
+@app.route('/test', methods=['POST'])
 def get_test_env():
     return get_claims_url('test')
 
