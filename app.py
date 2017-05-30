@@ -12,6 +12,8 @@ ENV_WARNING = 'You crazy? Provide correct environment (dev/qa/uat/test)'
 JIRA_WARNING = 'You crazy? Provide correct JIRA task number (e.g. 3242)'
 ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
 
+app = Flask(__name__)
+
 def after_this_request(func):
     if not hasattr(g, 'call_after_request'):
         g.call_after_request = []
@@ -24,7 +26,6 @@ def per_request_callbacks(response):
         response = func(response)
     return response
 
-app = Flask(__name__)
 
 def get_claims_url(env):
     return CLAIM_BASE_URL % env
