@@ -45,7 +45,10 @@ def requires_auth(f):
 def get_claims_env():
     env = get_entered_text()
     if env in ENVIRONMENTS:
-        return get_claims_url(env)
+        return jsonify(
+            text=get_claims_url(env),
+            response_type="in_channel"
+        )
     else:
         return ENV_WARNING
 
@@ -54,7 +57,10 @@ def get_claims_env():
 def get_contract_env():
     env = get_entered_text()
     if env in ENVIRONMENTS:
-        return get_contract_url(env)
+        return jsonify(
+            text=get_contract_url(env),
+            response_type="in_channel"
+            )
     else:
         return ENV_WARNING
 
@@ -63,7 +69,10 @@ def get_contract_env():
 def get_jira_link():
     jira_task_number = get_entered_text()
     if re.match("^[0-9]{4}$", jira_task_number):
-        return get_jira_url(jira_task_number)
+        return jsonify(
+            text=get_jira_url(jira_task_number),
+            response_type="in_channel"
+            )
     else:
         return JIRA_WARNING
 
