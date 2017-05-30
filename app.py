@@ -1,6 +1,7 @@
 from functools import wraps
 import os
 from flask import Flask, request, Response
+import re
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
 BASE_URL = 'http://cgbsclaim%s01:18001/claims/overview'
@@ -43,7 +44,12 @@ def get_test_env():
 @app.route('/jira', methods=['POST'])
 @requires_auth
 def get_jira_link():
-    return get_jira_url(request.form.get('text'))
+    jira_task_number = request.form.get('text')
+    pattern = re.compile("\b[0-9]\{4\}\b")
+    if pattern.match(jira_task_number):
+        return get_jira_url(jira_task_number)
+    else:
+        return 'You crazy? Provide JIRA task number, eg.: 3242'
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
