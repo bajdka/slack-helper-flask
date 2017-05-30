@@ -3,7 +3,7 @@ import os
 import re
 from flask import Flask, request, Response, jsonify
 
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
@@ -91,8 +91,8 @@ def get_jira_link():
 #         response = func(response)
 #     return response
 
-# import requests
-# import json
+import requests
+import json
 
 
 @app.route('/kudo', methods=['POST'])
@@ -107,8 +107,8 @@ def send_kudo():
 
     data = {"text": "blablbla"}
 
-    # requests.post(url, data=json.dumps(data), headers=headers)
-    return Response(), 200
+    #requests.post(url, data=json.dumps(data), headers=headers)
+    return request.form.get('response_url')
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
