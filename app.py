@@ -84,6 +84,7 @@ def send_kudo():
         text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
         response_type="in_channel"
         ))
+    return Response(), 200
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
