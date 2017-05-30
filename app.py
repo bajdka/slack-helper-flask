@@ -79,14 +79,11 @@ def get_jira_link():
 @app.route('/kudo', methods=['POST'])
 @requires_auth
 def send_kudo():
-    text = get_entered_text()
-    to_username = text
-    from_username = get_username()
-    kudo_message = text
-    return jsonify(
+    response_url = request.form.get('response_url')
+    request.post(response_url, headers={'Content-Type': 'application/json'}, data=jsonify(
         text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
         response_type="in_channel"
-        )
+        ))
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
