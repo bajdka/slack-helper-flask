@@ -2,6 +2,8 @@ from functools import wraps
 import os
 import re
 from flask import Flask, request, Response, jsonify
+# import requests
+# import json
 
 DEBUG = True
 
@@ -91,8 +93,7 @@ def get_jira_link():
 #         response = func(response)
 #     return response
 
-import requests
-import json
+
 
 
 @app.route('/kudo', methods=['POST'])
