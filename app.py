@@ -6,10 +6,10 @@ import json
 from flask import Flask, request, Response, jsonify, g
 import requests
 
-SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
-CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
-CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
-JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
+# SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
+# CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
+# CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
+# JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
 ENV_WARNING = 'You crazy? Provide correct environment (dev/qa/uat/test)'
 JIRA_WARNING = 'You crazy? Provide correct JIRA task number (e.g. 3242)'
 ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
@@ -42,7 +42,10 @@ def get_entered_text():
     return request.form.get('text').lower()
 
 def get_username():
-    return request.form.get('username')
+    return request.form.get('user_name')
+
+def get_response_url():
+    return request.form.get('response_url')
 
 def is_authorized():
     return request.form.get('token') == SLACK_WEBHOOK_SECRET
@@ -94,12 +97,13 @@ def get_jira_link():
 
 @app.route('/kudo', methods=['POST'])
 def send_kudo():
-    @after_this_request
-    def send_post(response):
-        response_url = request.form.get('response_url')
-        xx = json.dumps({"text":"%s + %s" % (get_entered_text(), get_username()), "response_type":"in_channel"})
-        requests.post(response_url, headers={'Content-Type': 'application/json'}, data=xx)
-    return Response(), 200
+    # @after_this_request
+    # def send_post(response):
+    #     response_url = 'https://hooks.slack.com/commands/T5BD97FPY/189396437792/CPSNJxTai83cK6iE0q8ztWmO'
+    #     xx = json.dumps({"text":"%s + %s" % (get_entered_text(), get_username()), "response_type":"in_channel"})
+    #     requests.post(response_url, headers={'Content-Type': 'application/json'}, data=xx)
+    # return Response(), 200
+    return get_response_url()
 
 
 if __name__ == '__main__':
