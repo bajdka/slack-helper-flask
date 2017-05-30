@@ -74,7 +74,7 @@ def send_kudo():
     to_username = text
     from_username = get_username()
     kudo_message = text
-    return "%s + %s" % (get_entered_text(), request.form.get('username'))
+    return "%s + %s" % (get_entered_text(), request.form.get('user_name'))
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
