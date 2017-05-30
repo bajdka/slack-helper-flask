@@ -6,10 +6,10 @@ import json
 from flask import Flask, request, Response, jsonify, g
 import requests
 
-# SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
-# CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
-# CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
-# JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
+SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
+CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
+CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
+JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
 ENV_WARNING = 'You crazy? Provide correct environment (dev/qa/uat/test)'
 JIRA_WARNING = 'You crazy? Provide correct JIRA task number (e.g. 3242)'
 ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
@@ -104,7 +104,6 @@ def send_kudo():
     #     requests.post(response_url, headers={'Content-Type': 'application/json'}, data=xx)
     # return Response(), 200
     return get_response_url()
-
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
