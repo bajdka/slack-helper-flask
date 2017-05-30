@@ -1,7 +1,7 @@
 from functools import wraps
 import os
 import re
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
 CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
@@ -74,7 +74,10 @@ def send_kudo():
     to_username = text
     from_username = get_username()
     kudo_message = text
-    return "%s + %s" % (get_entered_text(), request.form.get('user_name'))
+    return jsonify(
+        text="%s + %s" % (get_entered_text(), request.form.get('user_name')),
+        response_type="in_channel"
+        )
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
