@@ -89,12 +89,11 @@ def send_kudo():
     url = request.form.get('response_url')
     user = get_entered_text().split(' ', 1)[0]
     reason = get_entered_text().split(' ', 1)[1]
-    user_from = request.form.get('user_name')
 
     data = {
         "attachments": [
             {"color": "#439FE0",
-             "text": "Kudo poszło w świat! :partyparrot:\n:star2: %s :star2:\n*%s*" % (user, reason),
+             "text": ":star2: %s :star2:\n*%s*" % (user, reason),
              "mrkdwn_in":["text"]}], "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
