@@ -94,7 +94,7 @@ def send_kudo():
         "attachments": [
             {"color": "#439FE0",
              "text": "Nowe kudo! \n:star2: %s :star2:\n*%s*" % (user, reason),
-             "mrkdwn_in":["text"]}], "response_type":"in_channel", "parse":"full", "link_names":True}
+             "mrkdwn_in":["text"]}], "response_type":"in_channel", "parse":"full", "link_names":"true", "username":"kudo-manager"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
     return Response(), 200
