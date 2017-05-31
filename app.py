@@ -85,12 +85,15 @@ def get_jira_link():
 def send_kudo():
     headers = {'content-type': 'application/json'}
     url = request.form.get('response_url')
+    text = get_entered_text()
+    user = text.split(" ")[0]
+    username = request.form.get('user_name')
 
     data = {
         "attachments": [
-            {"color": "good",
+            {"color": "#439FE0",
              "pretext": "Wild kudo appears!",
-             "text": "*Od:* gosia\n*Dla:* jozek\n\n*because*",
+             "text": "*Od:* %s\n*Dla:* %s\n\n*because*" % (username, user),
              "mrkdwn_in":["text"]}], "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
