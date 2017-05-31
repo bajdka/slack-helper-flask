@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*- 
+
 from functools import wraps
 import os
 import re
@@ -85,16 +87,14 @@ def get_jira_link():
 def send_kudo():
     headers = {'content-type': 'application/json'}
     url = request.form.get('response_url')
-    text = get_entered_text()
-    user = text.split(' ', 1)[0]
-    username = request.form.get('user_name')
-    reason = text.split(' ', 1)[1]
+    user = get_entered_text().split(' ', 1)[0]
+    reason = get_entered_text().split(' ', 1)[1]
 
     data = {
         "attachments": [
             {"color": "#439FE0",
-             "pretext": "Wild kudo appears!",
-             "text": "*Od:* %s\n*Dla:* %s\n\n*%s*" % (username, user, reason),
+             "pretext": "Kudo poszło w świat!",
+             "text": "*Dla:* %s\n\n*%s*" % (user, reason),
              "mrkdwn_in":["text"]}], "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
