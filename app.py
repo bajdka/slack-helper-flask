@@ -88,10 +88,9 @@ def send_kudo():
 
     data = {
         "attachments": [
-            {"username":"ziomek",
-             "color": "good",
+            {"color": "good",
              "pretext": "Wild kudo appears!",
-             "text": "*From:* gosia\n*To:* jozek\n*Why:* because",
+             "text": "*Od:* gosia\n*Dla:* jozek\n\n*because*",
              "mrkdwn_in":["text"]}], "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
