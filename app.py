@@ -86,14 +86,15 @@ def send_kudo():
     headers = {'content-type': 'application/json'}
     url = request.form.get('response_url')
     text = get_entered_text()
-    user = text.split(" ")[0]
+    user = text.split(' ', 1)[0]
     username = request.form.get('user_name')
+    reason = text.split(' ', 1)[1]
 
     data = {
         "attachments": [
             {"color": "#439FE0",
              "pretext": "Wild kudo appears!",
-             "text": "*Od:* %s\n*Dla:* %s\n\n*because*" % (username, user),
+             "text": "*Od:* %s\n*Dla:* %s\n\n*%s*" % (username, user, reason),
              "mrkdwn_in":["text"]}], "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
