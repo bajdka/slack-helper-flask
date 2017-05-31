@@ -94,9 +94,9 @@ def send_kudo():
     data = {
         "attachments": [
             {"color": "#439FE0",
-             "pretext": "Kudo poszło w świat! :party_parrot:",
-             "text": ":star2: %s :star2:\n*%s*" % (user, reason),
-             "mrkdwn_in":["text", "pretext"]}], "response_type":"in_channel"}
+             "text": "Kudo poszło w świat! :partyparrot:\n:star2: %s :star2:\n*%s*" % (user, reason),
+             "mrkdwn_in":["text"]}],
+        "response_type":"in_channel"}
 
     requests.post(url, data=json.dumps(data), headers=headers)
     return Response(), 200
