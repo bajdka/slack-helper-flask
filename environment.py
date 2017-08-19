@@ -1,11 +1,15 @@
 import os
 
-CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
-CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
-LOCAL_ENVS = ['dev', 'qa', 'test', 'uat']
-ALL_ENVS = ['dev', 'qa', 'test', 'uat', 'e2e', 'sit']
 CLAIM_MODULE = 'claims'
 CONTRACT_MODULE = 'contract'
+WPC_MODULE = 'wpc'
+
+CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
+CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
+WPC_BASE_URL = os.environ['WPC_BASE_URL']
+
+LOCAL_ENVS = ['dev', 'qa', 'test', 'uat']
+ALL_ENVS = ['dev', 'qa', 'test', 'uat', 'e2e', 'sit']
 
 SIT_URL = os.environ['SIT_ENV_URL']
 E2E_URL = os.environ['E2E_ENV_URL']
@@ -23,3 +27,5 @@ def get_local_env_url(module, env):
         return CLAIM_BASE_URL % env
     elif module == CONTRACT_MODULE:
         return CONTRACT_BASE_URL % env
+    elif module == WPC_MODULE:
+        return WPC_BASE_URL % env
