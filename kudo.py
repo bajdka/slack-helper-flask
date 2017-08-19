@@ -1,6 +1,7 @@
 import requests
 from flask import Blueprint, Response, request, json
-from common import get_entered_text, requires_auth
+from common import requires_auth
+from message import get_entered_text
 
 kudo_app = Blueprint('kudo_app', __name__)
 
