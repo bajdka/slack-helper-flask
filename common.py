@@ -20,6 +20,3 @@ def is_authorized():
         return True
     else:
         return request.form.get('token') == SLACK_WEBHOOK_SECRET
-
-def get_entered_text():
-    return request.form.get('text').lower()

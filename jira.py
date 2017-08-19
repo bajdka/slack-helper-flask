@@ -1,8 +1,9 @@
 import os
 import re
-from flask import Blueprint, jsonify
-from common import get_entered_text, requires_auth
+from flask import Blueprint
+from common import requires_auth
 from warning import JIRA_WARNING
+from message import get_entered_text, send_slack_message
 
 JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
 
@@ -13,10 +14,7 @@ jira_app = Blueprint('jira_app', __name__)
 def get_jira_link():
     jira_task_number = get_entered_text()
     if is_number_correct(jira_task_number):
-        return jsonify(
-            text=get_jira_url(jira_task_number),
-            response_type="in_channel"
-            )
+        return send_slack_message(get_jira_url(jira_task_number))
     else:
         return JIRA_WARNING
 
