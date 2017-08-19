@@ -4,10 +4,10 @@ import os
 from functools import wraps
 from flask import request, Response
 
-DEBUG = True
+DEBUG = False
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
-ENV_WARNING = 'You crazy? Provide correct environment (dev/qa/uat/test)'
+ENV_WARNING = 'Szalony! :partyparrot: Dostępne środowiska: dev/qa/uat/test'
 ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
 
 

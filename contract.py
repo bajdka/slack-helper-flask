@@ -20,4 +20,3 @@ def get_contract_env():
             )
     else:
         return ENV_WARNING
-

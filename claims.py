@@ -2,7 +2,6 @@ import os
 from flask import Blueprint, jsonify
 from common import get_entered_text, ENVIRONMENTS, ENV_WARNING, requires_auth
 
-
 CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
 
 claim_app = Blueprint('claim_app', __name__)
