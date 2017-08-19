@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from common import get_entered_text, requires_auth
-from environment import LOCAL_ENVIRONMENTS, ENV_WARNING, CONTRACT_BASE_URL, SIT_ENV_URL, E2E_ENV_URL
+from environment import LOCAL_ENVS, ENV_WARNING, CONTRACT_BASE_URL, SIT_URL, E2E_URL
 
 contract_app = Blueprint('contract_app', __name__)
 
@@ -14,11 +14,11 @@ def get_contract_env():
     )
 
 def get_contract_url(env):
-    if env in LOCAL_ENVIRONMENTS:
+    if env in LOCAL_ENVS:
         return CONTRACT_BASE_URL % env
     elif env == 'sit':
-        return SIT_ENV_URL % 'contract'
+        return SIT_URL % 'contract'
     elif env == 'e2e':
-        return E2E_ENV_URL % 'contract'
+        return E2E_URL % 'contract'
     else:
         return ENV_WARNING
