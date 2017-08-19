@@ -1,7 +1,8 @@
 import os
 from flask import Blueprint, jsonify
 from common import get_entered_text, requires_auth
-from environment import LOCAL_ENVS, SIT_URL, E2E_URL, ENV_WARNING, CLAIM_BASE_URL
+from environment import LOCAL_ENVS, SIT_URL, E2E_URL, CLAIM_BASE_URL
+from warning import ENV_WARNING
 
 claim_app = Blueprint('claim_app', __name__)
 

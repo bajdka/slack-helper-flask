@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from common import get_entered_text, requires_auth
-from environment import LOCAL_ENVS, ENV_WARNING, CONTRACT_BASE_URL, SIT_URL, E2E_URL
+from environment import LOCAL_ENVS, CONTRACT_BASE_URL, SIT_URL, E2E_URL
+from warning import ENV_WARNING
 
 contract_app = Blueprint('contract_app', __name__)
 
