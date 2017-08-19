@@ -1,4 +1,5 @@
 import os
+from warning import COMMON_WARNING
 
 CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
 CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
@@ -23,3 +24,5 @@ def get_local_env_url(module, env):
         return CLAIM_BASE_URL % env
     elif module == CONTRACT_MODULE:
         return CONTRACT_BASE_URL
+    else:
+        return COMMON_WARNING
