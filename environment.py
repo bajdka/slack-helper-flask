@@ -13,7 +13,7 @@ E2E_URL = os.environ['E2E_ENV_URL']
 
 def get_url(module, env):
     if env in LOCAL_ENVS:
-        get_local_env_url(module, env)
+        return get_local_env_url(module, env)
     elif env == 'sit':
         return SIT_URL % module
     elif env == 'e2e':
