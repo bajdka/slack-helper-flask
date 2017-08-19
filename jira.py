@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify
 from common import get_entered_text, requires_auth
 
 JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
-JIRA_WARNING = ':confused_parrot: Podaj numer zadania w Jirze np. 3242'
+JIRA_WARNING = ':confused_parrot: Podaj numer zadania w Jirze np. 3242 :confused_parrot:'
 
 jira_app = Blueprint('jira_app', __name__)
 
