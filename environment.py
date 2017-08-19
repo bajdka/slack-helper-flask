@@ -22,4 +22,4 @@ def get_local_env_url(module, env):
     if module == CLAIM_MODULE:
         return CLAIM_BASE_URL % env
     elif module == CONTRACT_MODULE:
-        return CONTRACT_BASE_URL
+        return CONTRACT_BASE_URL % env
