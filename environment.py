@@ -1,5 +1,4 @@
 import os
-from warning import COMMON_WARNING
 
 CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
 CLAIM_BASE_URL = os.environ['CLAIM_BASE_URL']
