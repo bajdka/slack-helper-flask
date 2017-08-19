@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 
 CONTRACT_BASE_URL = os.environ['CONTRACT_BASE_URL']
