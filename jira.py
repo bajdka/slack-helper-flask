@@ -4,8 +4,7 @@ from flask import Blueprint
 from common import requires_auth
 from warning import JIRA_WARNING
 from message import get_entered_text, send_slack_message
-
-JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
+from tools import JIRA_BASE_URL
 
 jira_app = Blueprint('jira_app', __name__)
 
