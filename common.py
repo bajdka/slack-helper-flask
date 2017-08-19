@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import os
 from functools import wraps
 from flask import request, Response
@@ -7,15 +6,6 @@ from flask import request, Response
 DEBUG = False
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
-ENV_WARNING = 'Szalony! :partyparrot: Dostępne środowiska: dev/qa/uat/test'
-ENVIRONMENTS = ['dev', 'qa', 'test', 'uat']
-
-
-def is_authorized():
-    if DEBUG:
-        return True
-    else:
-        return request.form.get('token') == SLACK_WEBHOOK_SECRET
 
 def requires_auth(f):
     @wraps(f)
@@ -24,6 +14,12 @@ def requires_auth(f):
             return Response(), 401
         return f(*args, **kwargs)
     return decorated
+
+def is_authorized():
+    if DEBUG:
+        return True
+    else:
+        return request.form.get('token') == SLACK_WEBHOOK_SECRET
 
 def get_entered_text():
     return request.form.get('text').lower()
