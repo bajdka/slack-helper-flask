@@ -6,6 +6,7 @@ from message import send_slack_message, get_entered_text
 
 claim_app = Blueprint('claim_app', __name__)
 
+
 @claim_app.route('/claim', methods=['POST'])
 @requires_auth
 def get_claims_env():

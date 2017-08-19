@@ -7,6 +7,7 @@ DEBUG = False
 
 SLACK_WEBHOOK_SECRET = os.environ['SLACK_WEBHOOK_SECRET']
 
+
 def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -14,6 +15,7 @@ def requires_auth(f):
             return Response(), 401
         return f(*args, **kwargs)
     return decorated
+
 
 def is_authorized():
     if DEBUG:

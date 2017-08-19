@@ -6,6 +6,7 @@ from message import send_slack_message, get_entered_text
 
 contract_app = Blueprint('contract_app', __name__)
 
+
 @contract_app.route('/contract', methods=['POST'])
 @requires_auth
 def get_contract_env():

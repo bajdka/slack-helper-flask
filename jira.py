@@ -9,6 +9,7 @@ JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
 
 jira_app = Blueprint('jira_app', __name__)
 
+
 @jira_app.route('/jira', methods=['POST'])
 @requires_auth
 def get_jira_link():
@@ -18,8 +19,10 @@ def get_jira_link():
     else:
         return JIRA_WARNING
 
+
 def get_jira_url(task_number):
     return JIRA_BASE_URL % task_number
+
 
 def is_number_correct(jira_task_number):
     return re.match("^[0-9]{4}$", jira_task_number)

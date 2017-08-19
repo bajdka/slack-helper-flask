@@ -6,6 +6,7 @@ from message import send_slack_message, get_entered_text
 
 wpc_app = Blueprint('wpc_app', __name__)
 
+
 @wpc_app.route('/wpc', methods=['POST'])
 @requires_auth
 def get_wpc_env():
