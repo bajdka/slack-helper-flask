@@ -1,4 +1,3 @@
-import os
 from flask import Blueprint
 from common import requires_auth
 from environment import ALL_ENVS, CLAIM_MODULE, get_url
