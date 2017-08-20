@@ -2,10 +2,10 @@ import sys
 from flask import jsonify, request
 
 
-def send_slack_message(method):
+def send_slack_message(message):
     try:
         return jsonify(
-            text=method,
+            text=message,
             response_type="in_channel"
         )
     except:
