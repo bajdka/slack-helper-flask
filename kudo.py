@@ -17,7 +17,7 @@ def send_kudo():
     data = {
         "attachments": [
             {"color": "#439FE0",
-             "text": "Nowe kudo! \n:star2: %s :star2:\n*%s*" % (user, reason),
+             "text": "New kudo! \n:star2: %s :star2:\n*%s*" % (user, reason),
              "mrkdwn_in": ["text"]}], "response_type": "in_channel", "parse": "full", "link_names": 1}
 
     requests.post(url, data=json.dumps(data), headers=headers)
